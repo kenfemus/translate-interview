@@ -1,5 +1,5 @@
 {
-  "name": "translate-interview-test",
+  "name": "translate-interview",
   "version": "0.1.0",
   "description": "",
   "author": "",
@@ -17,7 +17,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "docker:build": "docker buildx build --platform=linux/amd64 . -t $npm_package_name:$npm_package_version"
   },
   "dependencies": {
     "@google-cloud/translate": "^8.0.2",

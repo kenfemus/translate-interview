@@ -5,15 +5,18 @@ import {
   HttpException,
   HttpStatus,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { TranslateDto } from './translater.dto';
 import { Target, TranslaterService } from './translater.service';
+import { AuthGuard } from './auth.guard';
 
 @Controller('translater')
 export class TranslaterController {
   constructor(private readonly service: TranslaterService) {}
 
   @Post('translate')
+  @UseGuards(AuthGuard)
   @HttpCode(200)
   async translate(@Body() translateDto: TranslateDto): Promise<{
     text: string;

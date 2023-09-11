@@ -22,6 +22,7 @@ describe('TranslatorController (e2e)', () => {
       .post('/translater/translate')
       .send({ text: 'สวัสดี', target: 'en' })
       .set('Accept', 'application/json')
+      .set('auth-token', '1234')
       .expect(200)
       .expect({
         text: 'สวัสดี',
@@ -34,6 +35,7 @@ describe('TranslatorController (e2e)', () => {
     return request(app.getHttpServer())
       .post('/translater/translate')
       .send({ text: 'สวัสดี', target: 'abc' })
+      .set('auth-token', '1234')
       .set('Accept', 'application/json')
       .expect(400);
   });
@@ -42,7 +44,16 @@ describe('TranslatorController (e2e)', () => {
     return request(app.getHttpServer())
       .post('/translater/translate')
       .send({ text: 'hello', target: 'en' })
+      .set('auth-token', '1234')
       .set('Accept', 'application/json')
       .expect(400);
+  });
+
+  it('/translate (POST) no token', () => {
+    return request(app.getHttpServer())
+      .post('/translater/translate')
+      .send({ text: 'hello', target: 'en' })
+      .set('Accept', 'application/json')
+      .expect(403);
   });
 });
